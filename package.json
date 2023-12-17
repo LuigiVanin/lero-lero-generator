@@ -1,20 +1,31 @@
 {
   "name": "lero-lero-bot",
-  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "build": "turbo build",
-    "dev": "turbo dev",
-    "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "start:test": "node build/apps/test/main.js",
+    "start:disc": "node build/apps/discord/main.js",
+    "start:cli": "node build/apps/cli/main.js",
+    "run:test": "pnpm build && pnpm start:test",
+    "run:disc": "pnpm build && pnpm start:disc",
+    "dev:test": "ts-node-dev --respawn --transpile-only apps/test/main.ts",
+    "dev:disc": "ts-node-dev --respawn --transpile-only apps/disc/main.ts"
+    
+  
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
-    "prettier": "^3.1.0",
-    "turbo": "latest"
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.3.3"
   },
-  "packageManager": "pnpm@8.9.0",
-  "engines": {
-    "node": ">=18"
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.3.1",
+    "openai": "^4.22.1"
   }
 }
