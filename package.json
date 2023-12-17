@@ -12,7 +12,7 @@
     "run:test": "pnpm build && pnpm start:test",
     "run:disc": "pnpm build && pnpm start:disc",
     "dev:test": "ts-node-dev --respawn --transpile-only apps/test/main.ts",
-    "dev:disc": "ts-node-dev --respawn --transpile-only apps/disc/main.ts"
+    "dev:disc": "ts-node-dev --respawn --transpile-only apps/discord/main.ts"
     
   
   },
