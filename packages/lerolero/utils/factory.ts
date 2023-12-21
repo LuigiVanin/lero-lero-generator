@@ -4,7 +4,7 @@ import {
   GptTextGenerationService,
   MockTextGenerationService,
 } from "../../generation";
-import { GenerationHistory } from "../../history";
+import { GenerationHistory, InMemoryGenerationHistory } from "../../history";
 
 export class LeroLeroGeneratorFactory {
   static createGptLeroLero(
@@ -20,7 +20,9 @@ export class LeroLeroGeneratorFactory {
     return new LeroLeroGenerator(generatorService, history);
   }
 
-  static createMockLeroLero(history: GenerationHistory): LeroLeroGenerator {
+  static createMockLeroLero(
+    history: GenerationHistory = new InMemoryGenerationHistory()
+  ): LeroLeroGenerator {
     const generatorService = new MockTextGenerationService();
     return new LeroLeroGenerator(generatorService, history);
   }
