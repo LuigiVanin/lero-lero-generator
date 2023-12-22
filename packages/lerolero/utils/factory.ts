@@ -8,8 +8,8 @@ import { GenerationHistory, InMemoryGenerationHistory } from "../../history";
 
 export class LeroLeroGeneratorFactory {
   static createGptLeroLero(
-    history: GenerationHistory,
-    apiKey: string
+    apiKey: string,
+    history: GenerationHistory = new InMemoryGenerationHistory()
   ): LeroLeroGenerator {
     const openAi = new OpenAI({
       apiKey,
