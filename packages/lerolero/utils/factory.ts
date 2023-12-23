@@ -5,6 +5,7 @@ import {
   MockTextGenerationService,
 } from "../../generation";
 import { GenerationHistory, InMemoryGenerationHistory } from "../../history";
+import { InDiskGenerationHistory } from "../../history/InDiskGenerationHistory";
 
 export class LeroLeroGeneratorFactory {
   static createGptLeroLero(
@@ -21,9 +22,11 @@ export class LeroLeroGeneratorFactory {
   }
 
   static createMockLeroLero(
+    // history: GenerationHistory = new InDiskGenerationHistory("./data")
     history: GenerationHistory = new InMemoryGenerationHistory()
   ): LeroLeroGenerator {
     const generatorService = new MockTextGenerationService();
+    history.set("openai", []);
     return new LeroLeroGenerator(generatorService, history);
   }
 }

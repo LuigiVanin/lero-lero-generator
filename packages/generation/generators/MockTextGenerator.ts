@@ -13,7 +13,10 @@ export class MockTextGenerationService implements TextGeneratorService {
       prompt +
       "\nOlá! Em que posso ajudar?" +
       "\n" +
-      (messages[0]?.content || "Sem histórico")
+      (messages
+        ?.splice(0, 6)
+        .map((m) => m.content)
+        .join("\n") || "Sem histórico")
     );
   }
 }

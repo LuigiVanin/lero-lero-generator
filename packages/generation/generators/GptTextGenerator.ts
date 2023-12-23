@@ -14,18 +14,13 @@ const openAiConfig: OpenAiGptConfig = {
 };
 
 export class GptTextGenerationService implements TextGeneratorService {
-  constructor(private openAi: OpenAI, private systemMessage?: string) {
+  constructor(private openAi: OpenAI) {
     console.log("GptTextGenerationService Maisty");
-  }
-
-  setSystemMessage(message: string) {
-    this.systemMessage = message;
   }
 
   createMessages(
     text: string,
-    messages: GenerationMessage[],
-    systemMessage?: string
+    messages: GenerationMessage[]
   ): GenerationMessage[] {
     const result: GenerationMessage[] = [
       ...messages,
@@ -34,12 +29,6 @@ export class GptTextGenerationService implements TextGeneratorService {
         content: text,
       },
     ];
-    if (systemMessage) {
-      result.unshift({
-        role: "system",
-        content: systemMessage,
-      });
-    }
 
     return result;
   }
@@ -49,15 +38,19 @@ export class GptTextGenerationService implements TextGeneratorService {
     messages: GenerationMessage[],
     config?: OpenAiGptConfig
   ) {
-    messages = this.createMessages(prompt, messages, this.systemMessage);
+    messages = this.createMessages(prompt, messages);
     const params: ChatCompletionCreateParamsNonStreaming = {
       ...openAiConfig,
       ...config,
       messages,
     };
 
+    console.log("GptTextGenerationService.generate", params);
+
     const response = await this.openAi.chat.completions.create(params);
     const generatedText = response.choices[0]?.message.content || null;
+
+    console.log("GptTextGenerationService.generate", generatedText);
 
     return generatedText;
   }
