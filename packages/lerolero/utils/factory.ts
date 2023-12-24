@@ -22,8 +22,8 @@ export class LeroLeroGeneratorFactory {
   }
 
   static createMockLeroLero(
-    // history: GenerationHistory = new InDiskGenerationHistory("./data")
-    history: GenerationHistory = new InMemoryGenerationHistory()
+    history: GenerationHistory = new InDiskGenerationHistory("./data")
+    // history: GenerationHistory = new InMemoryGenerationHistory()
   ): LeroLeroGenerator {
     const generatorService = new MockTextGenerationService();
     history.set("openai", []);

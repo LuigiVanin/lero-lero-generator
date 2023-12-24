@@ -15,17 +15,25 @@ export class InDiskGenerationHistory implements GenerationHistory {
     }
   }
 
-  private fileExistsOnList(files: string[], id: string) {
-    return files.find((file) => file === `${id}.json`);
-  }
-
   private createFile(id: string) {
     fs.writeFileSync(`${this.path}/${id}.json`, JSON.stringify([]));
   }
 
-  get(id: string): GenerationMessage[] {
-    throw new Error("Method not implemented.");
+  private fileExistsOnList(files: string[], id: string) {
+    return files.find((file) => file === `${id}.json`);
   }
+
+  get(id: string): GenerationMessage[] {
+    const files = fs.readdirSync(this.path);
+
+    if (!this.fileExistsOnList(files, id)) {
+      this.createFile(id);
+    }
+
+    const file = fs.readFileSync(`${this.path}/${id}.json`, "utf-8");
+    return JSON.parse(file);
+  }
+
   async set(id: string, messages: GenerationMessage[]): Promise<void> {
     const files = fs.readdirSync(this.path);
 
@@ -34,10 +42,11 @@ export class InDiskGenerationHistory implements GenerationHistory {
     }
 
     fs.writeFileSync(`${this.path}/${id}.json`, JSON.stringify(messages));
-    console.log(files);
   }
 
   update(id: string, message: GenerationMessage): void {
-    throw new Error("Method not implemented.");
+    const messages = this.get(id);
+    messages.push(message);
+    this.set(id, messages);
   }
 }
