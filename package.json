@@ -13,8 +13,6 @@
     "run:disc": "pnpm build && pnpm start:disc",
     "dev:test": "NODE_ENV=DEV ts-node-dev --respawn --transpile-only apps/test/main.ts",
     "dev:disc": "NODE_ENV=DEV ts-node-dev --respawn --transpile-only apps/discord/main.ts"
-    
-  
   },
   "keywords": [],
   "author": "",
@@ -24,6 +22,7 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.478.0",
     "discord.js": "^14.14.1",
     "dotenv": "^16.3.1",
     "openai": "^4.22.1"

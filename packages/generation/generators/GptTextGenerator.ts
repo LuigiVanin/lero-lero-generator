@@ -55,28 +55,3 @@ export class GptTextGenerationService implements TextGeneratorService {
     return generatedText;
   }
 }
-
-// import OpenAI from "openai";
-// import { GptTextGenerationService } from "../../packages/generation";
-// import dotenv from "dotenv";
-
-// console.log("main.ts");
-// dotenv.config();
-
-// console.log("DOTENV: ", process.env.OPEN_AI_SECRET_KEY);
-
-// const openAi = new OpenAI({
-//   apiKey: "",
-// });
-
-// const service = new GptTextGenerationService(openAi);
-
-// const result = service
-//   .generate("Olá", [])
-//   .then((result) => {
-//     console.log("RESULT: ", result);
-//   })
-//   .catch((err) => {
-//     console.log("ERROR: ", err);
-//   });
-// console.log(result);
