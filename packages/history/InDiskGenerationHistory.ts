@@ -23,7 +23,7 @@ export class InDiskGenerationHistory implements GenerationHistory {
     return files.find((file) => file === `${id}.json`);
   }
 
-  get(id: string): GenerationMessage[] {
+  async get(id: string): Promise<GenerationMessage[]> {
     const files = fs.readdirSync(this.path);
 
     if (!this.fileExistsOnList(files, id)) {
@@ -44,8 +44,8 @@ export class InDiskGenerationHistory implements GenerationHistory {
     fs.writeFileSync(`${this.path}/${id}.json`, JSON.stringify(messages));
   }
 
-  update(id: string, message: GenerationMessage): void {
-    const messages = this.get(id);
+  async update(id: string, message: GenerationMessage): Promise<void> {
+    const messages = await this.get(id);
     messages.push(message);
     this.set(id, messages);
   }

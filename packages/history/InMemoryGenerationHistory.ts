@@ -4,16 +4,16 @@ import { GenerationHistory } from "./interfaces/GenerationHistory";
 export class InMemoryGenerationHistory implements GenerationHistory {
   private history: Map<string, GenerationMessage[]> = new Map();
 
-  get(id: string): GenerationMessage[] {
+  async get(id: string): Promise<GenerationMessage[]> {
     console.log("InMemoryGenerationHistory.Id", this.history);
     return this.history.get(id) || [];
   }
 
-  set(id: string, messages: GenerationMessage[]): void {
+  async set(id: string, messages: GenerationMessage[]): Promise<void> {
     this.history.set(id, messages);
   }
 
-  update(id: string, message: GenerationMessage): void {
+  async update(id: string, message: GenerationMessage): Promise<void> {
     const messages = this.history.get(id);
     if (!messages) {
       this.set(id, [message]);

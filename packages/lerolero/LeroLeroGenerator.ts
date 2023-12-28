@@ -22,7 +22,7 @@ export class LeroLeroGenerator {
   }
 
   async generate(id: string, prompt: string): Promise<string | null> {
-    const messages = this.history.get(id).slice(-5);
+    const messages = (await this.history.get(id)).slice(-5);
     if (this.systemMessage) {
       messages?.unshift(this.systemMessage);
     }

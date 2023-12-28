@@ -2,6 +2,8 @@ import dotenv from "dotenv";
 import { LeroLeroDiscordBot } from "./bot";
 import { LeroLeroGeneratorFactory } from "../../packages/lerolero/utils/factory";
 import { LeroLeroGenerator } from "../../packages/lerolero";
+import { S3GenerationHistory } from "../../packages/history";
+import { S3Client } from "@aws-sdk/client-s3";
 
 dotenv.config();
 
@@ -16,7 +18,27 @@ const main = () => {
 
   let generator: LeroLeroGenerator;
 
-  if (process.env.NODE_ENV === "PROD") {
+  if (process.env.NODE_ENV === "PROD_REMOTE") {
+    if (!process.env.AWS_ACCESS_KEY || !process.env.AWS_SECRET_KEY) {
+      throw new Error("AWS_ACCESS_KEY_ID or AWS_SECRET_KEY not found");
+    }
+
+    const s3Client = new S3Client({
+      region: process.env.AWS_S3_REGION || "sa-east-1",
+      credentials: {
+        accessKeyId: process.env.AWS_ACCESS_KEY,
+        secretAccessKey: process.env.AWS_SECRET_KEY,
+      },
+    });
+    const history = new S3GenerationHistory(s3Client, {
+      bucket: "lerolero-history",
+    });
+
+    generator = LeroLeroGeneratorFactory.createGptLeroLero(
+      process.env.OPEN_AI_SECRET_KEY,
+      history
+    );
+  } else if (process.env.NODE_ENV === "PROD") {
     generator = LeroLeroGeneratorFactory.createGptLeroLero(
       process.env.OPEN_AI_SECRET_KEY
     );
