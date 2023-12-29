@@ -15,16 +15,22 @@ export class S3GenerationHistory implements GenerationHistory {
   ) {}
 
   async get(id: string): Promise<GenerationMessage[]> {
-    const response = await this.client.send(
-      new GetObjectCommand({
-        Bucket: this.options.bucket,
-        Key: `${id}.json`,
-      })
-    );
-    return JSON.parse((await response.Body?.transformToString()) || "[]");
+    try {
+      const response = await this.client.send(
+        new GetObjectCommand({
+          Bucket: this.options.bucket,
+          Key: `${id}.json`,
+        })
+      );
+
+      return JSON.parse((await response.Body?.transformToString()) || "[]");
+    } catch (error) {
+      return [];
+    }
   }
+
   async set(id: string, messages: GenerationMessage[]): Promise<void> {
-    this.client.send(
+    const response = await this.client.send(
       new PutObjectCommand({
         Bucket: this.options.bucket,
         Key: `${id}.json`,
@@ -32,7 +38,9 @@ export class S3GenerationHistory implements GenerationHistory {
       })
     );
   }
-  update(id: string, message: GenerationMessage): Promise<void> {
-    throw new Error("Method not implemented.");
+  async update(id: string, message: GenerationMessage): Promise<void> {
+    const messages = await this.get(id);
+    messages.push(message);
+    this.set(id, messages);
   }
 }

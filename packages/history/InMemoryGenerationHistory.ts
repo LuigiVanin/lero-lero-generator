@@ -5,7 +5,6 @@ export class InMemoryGenerationHistory implements GenerationHistory {
   private history: Map<string, GenerationMessage[]> = new Map();
 
   async get(id: string): Promise<GenerationMessage[]> {
-    console.log("InMemoryGenerationHistory.Id", this.history);
     return this.history.get(id) || [];
   }
 

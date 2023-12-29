@@ -19,7 +19,11 @@ const main = () => {
   let generator: LeroLeroGenerator;
 
   if (process.env.NODE_ENV === "PROD_REMOTE") {
-    if (!process.env.AWS_ACCESS_KEY || !process.env.AWS_SECRET_KEY) {
+    if (
+      !process.env.AWS_ACCESS_KEY ||
+      !process.env.AWS_SECRET_KEY ||
+      !process.env.AWS_S3_BUCKET_NAME
+    ) {
       throw new Error("AWS_ACCESS_KEY_ID or AWS_SECRET_KEY not found");
     }
 
@@ -31,13 +35,14 @@ const main = () => {
       },
     });
     const history = new S3GenerationHistory(s3Client, {
-      bucket: "lerolero-history",
+      bucket: process.env.AWS_S3_BUCKET_NAME,
     });
 
-    generator = LeroLeroGeneratorFactory.createGptLeroLero(
-      process.env.OPEN_AI_SECRET_KEY,
-      history
-    );
+    // generator = LeroLeroGeneratorFactory.createGptLeroLero(
+    //   process.env.OPEN_AI_SECRET_KEY,
+    //   history
+    // );
+    generator = LeroLeroGeneratorFactory.createMockLeroLero(history);
   } else if (process.env.NODE_ENV === "PROD") {
     generator = LeroLeroGeneratorFactory.createGptLeroLero(
       process.env.OPEN_AI_SECRET_KEY

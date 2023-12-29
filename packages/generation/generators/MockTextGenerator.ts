@@ -15,6 +15,7 @@ export class MockTextGenerationService implements TextGeneratorService {
       "\n" +
       (messages
         ?.splice(0, 6)
+        .filter((m) => m.role === "user")
         .map((m) => m.content)
         .join("\n") || "Sem histórico")
     );

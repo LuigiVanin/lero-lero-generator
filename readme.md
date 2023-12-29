@@ -7,7 +7,7 @@
 
 Welcome to the Lero Lero Generator! This TypeScript-based project leverages the power of OpenAI's GPT-3 to generate text in response to prompts. Additionally, it offers a feature to store history, creating a chat-like experience. With the integration of Discord.js, you can seamlessly interact with the generated content through Discord. AWS S3 is utilized for storing message history, ensuring efficient data management.
 
-> [!INFO]
+> [!IMPORTANT]
 > Please note that this project is developed for educational purposes. While it demonstrates the capabilities of text generation and history storage, it is not intended for production use.
 
 ## Usage 🚀

@@ -14,9 +14,7 @@ const openAiConfig: OpenAiGptConfig = {
 };
 
 export class GptTextGenerationService implements TextGeneratorService {
-  constructor(private openAi: OpenAI) {
-    console.log("GptTextGenerationService Maisty");
-  }
+  constructor(private openAi: OpenAI) {}
 
   createMessages(
     text: string,
@@ -45,12 +43,8 @@ export class GptTextGenerationService implements TextGeneratorService {
       messages,
     };
 
-    console.log("GptTextGenerationService.generate", params);
-
     const response = await this.openAi.chat.completions.create(params);
     const generatedText = response.choices[0]?.message.content || null;
-
-    console.log("GptTextGenerationService.generate", generatedText);
 
     return generatedText;
   }
