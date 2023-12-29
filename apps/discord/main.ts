@@ -38,11 +38,10 @@ const main = () => {
       bucket: process.env.AWS_S3_BUCKET_NAME,
     });
 
-    // generator = LeroLeroGeneratorFactory.createGptLeroLero(
-    //   process.env.OPEN_AI_SECRET_KEY,
-    //   history
-    // );
-    generator = LeroLeroGeneratorFactory.createMockLeroLero(history);
+    generator = LeroLeroGeneratorFactory.createGptLeroLero(
+      process.env.OPEN_AI_SECRET_KEY,
+      history
+    );
   } else if (process.env.NODE_ENV === "PROD") {
     generator = LeroLeroGeneratorFactory.createGptLeroLero(
       process.env.OPEN_AI_SECRET_KEY

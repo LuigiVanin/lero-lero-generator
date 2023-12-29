@@ -77,11 +77,17 @@ Contributions are welcome! Please ensure to follow these guidelines:
 - Ensure your code adheres to TypeScript and Discord.js style guides.
 - Open a pull request detailing the changes made and the problem solved.
 
-## Acknowledgments 🙏
+## Tools
 
 - [OpenAI GPT-3](https://openai.com/)
 - [Discord.js](https://discord.js.org/)
 - [AWS SDK for JavaScript](https://aws.amazon.com/sdk-for-javascript/)
+
+
+
+<p align="center">
+<img src="./assets/tools-grid.svg" />
+</p>
 
 ## Contact 📧
 

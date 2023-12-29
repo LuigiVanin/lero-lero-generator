@@ -6,13 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "start:test": "node build/apps/test/main.js",
     "start:disc": "node build/apps/discord/main.js",
-    "start:cli": "node build/apps/cli/main.js",
-    "run:test": "pnpm build && pnpm start:test",
-    "run:disc": "pnpm build && pnpm start:disc",
-    "dev:test": "NODE_ENV=DEV ts-node-dev --respawn --transpile-only apps/test/main.ts",
-    "dev:disc": "NODE_ENV=PROD_REMOTE ts-node-dev --respawn --transpile-only apps/discord/main.ts"
+    "run:disc": "NODE_ENV=PROD pnpm build && pnpm start:disc",
+    "deploy:disc": "pnpm build && NODE_ENV=PROD_REMOTE pnpm start:disc",
+    "dev:disc": "NODE_ENV=DEV ts-node-dev --respawn --transpile-only apps/discord/main.ts"
   },
   "keywords": [],
   "author": "",
