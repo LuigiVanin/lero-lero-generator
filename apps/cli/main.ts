@@ -45,6 +45,25 @@ const main = async () => {
         prompts.outro(colors.bgRed(` ${colors.bold("Bye bye! 👋👋")} `));
         return;
     }
+
+    while (true) {
+        const message = await prompts.text({
+            message: colors.bold("You: "),
+        });
+
+        if (prompts.isCancel(message)) {
+            break;
+        }
+
+        const loading = prompts.spinner();
+
+        loading.start("Lero Lero Generator is thinking...");
+        loading.stop(
+            `${colors.bold("Lero Lero Generator:")} \n${colors.gray(
+                "│ testeeeeee testeeeeee testeeeeee testeeeeee testeeeeee testeeeeee testeeeeee testeeeeee testeeeeee testeeeeee testeeeeee testeeeeee testeeeeee testeeeeee testeeeeee testeeeeee"
+            )}`
+        );
+    }
 };
 
 main();
