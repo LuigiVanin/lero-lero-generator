@@ -83,8 +83,6 @@ Contributions are welcome! Please ensure to follow these guidelines:
 - [Discord.js](https://discord.js.org/)
 - [AWS SDK for JavaScript](https://aws.amazon.com/sdk-for-javascript/)
 
-
-
 <p align="center">
 <img src="./assets/tools-grid.svg" />
 </p>
