@@ -10,7 +10,8 @@
     "deploy:disc": "pnpm build && NODE_ENV=PROD_REMOTE pnpm start:disc",
     "dev:disc": "NODE_ENV=DEV ts-node-dev --respawn --transpile-only apps/discord/main.ts",
     "dev:cli": "NODE_ENV=DEV ts-node-dev --respawn --transpile-only apps/cli/main.ts",
-    "test": "vitest --config ./vitest.config.ts run"
+    "test": "vitest --config ./vitest.config.ts run",
+    "test:watch": "vitest --config ./vitest.config.ts "
   },
   "keywords": [],
   "author": "",

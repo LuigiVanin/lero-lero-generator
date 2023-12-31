@@ -2,22 +2,12 @@ import { TextGeneratorService } from "../interfaces/TextGeneratorService";
 import { GenerationMessage } from "../types/generation";
 
 export class MockTextGenerationService implements TextGeneratorService {
-  constructor() {}
+    constructor() {}
 
-  async generate(
-    prompt: string,
-    messages: GenerationMessage[]
-  ): Promise<string> {
-    return (
-      "prompt: " +
-      prompt +
-      "\nOlá! Em que posso ajudar?" +
-      "\n" +
-      (messages
-        ?.splice(0, 6)
-        .filter((m) => m.role === "user")
-        .map((m) => m.content)
-        .join("\n") || "Sem histórico")
-    );
-  }
+    async generate(
+        prompt: string,
+        messages: GenerationMessage[]
+    ): Promise<string> {
+        return JSON.stringify([{ content: prompt, role: "user" }, ...messages]);
+    }
 }
