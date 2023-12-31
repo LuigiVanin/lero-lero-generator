@@ -11,7 +11,8 @@
     "dev:disc": "NODE_ENV=DEV ts-node-dev --respawn --transpile-only apps/discord/main.ts",
     "dev:cli": "NODE_ENV=DEV ts-node-dev --respawn --transpile-only apps/cli/main.ts",
     "test": "vitest --config ./vitest.config.ts run",
-    "test:watch": "vitest --config ./vitest.config.ts "
+    "test:watch": "vitest --config ./vitest.config.ts",
+    "test:docker": "docker build -t lerolero-test . && docker run -it --rm lerolero-test"
   },
   "keywords": [],
   "author": "",
