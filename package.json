@@ -4,20 +4,22 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "start:disc": "node build/apps/discord/main.js",
     "run:disc": "NODE_ENV=PROD pnpm build && pnpm start:disc",
     "deploy:disc": "pnpm build && NODE_ENV=PROD_REMOTE pnpm start:disc",
     "dev:disc": "NODE_ENV=DEV ts-node-dev --respawn --transpile-only apps/discord/main.ts",
-    "dev:cli": "NODE_ENV=DEV ts-node-dev --respawn --transpile-only apps/cli/main.ts"
+    "dev:cli": "NODE_ENV=DEV ts-node-dev --respawn --transpile-only apps/cli/main.ts",
+    "test": "vitest --config ./vitest.config.ts run"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "unplugin-auto-import": "^0.17.3",
+    "vitest": "^1.1.0"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.478.0",
