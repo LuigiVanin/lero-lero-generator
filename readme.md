@@ -17,7 +17,7 @@ Welcome to the Lero Lero Generator! This TypeScript-based project leverages the 
 To get started, ensure you have Node.js and `pnpm` installed:
 
 ```bash
-pnpm install
+$ pnpm install
 ```
 
 ### Configuration
@@ -25,7 +25,7 @@ pnpm install
 Set up your environment variables, including API keys for OpenAI GPT-3 and AWS S3:
 
 ```bash
-cp .env.example .env
+$ cp .env.example .env
 ```
 
 Fill in the necessary values in the `.env` file.
@@ -35,7 +35,31 @@ Fill in the necessary values in the `.env` file.
 Running the discord bot app:
 
 ```bash
-pnpm run:disc
+$ pnpm run:disc
+```
+
+Running the CLI app:
+
+```bash
+$ pnpm run:cli
+```
+
+## Testing 
+
+To run tests from the packages of this project you can use the command:
+
+```bash
+$ pnpm test
+```
+
+or using docker you can use:
+
+```bash
+$ pnpm test:docker
+
+# OR
+
+$ docker build -t lerolero-test . && docker run -it --rm lerolero-test
 ```
 
 ## Features 🎯
@@ -51,8 +75,11 @@ The project structure is organized as follows:
 
 ```
 ├── src/
+│   ├── tests/
 │   ├── apps/
 │       └── discord/
+│       └── cli/
+|       └── ...
 │   └── packages/
 |       ├── history/
 |       ├── generation/

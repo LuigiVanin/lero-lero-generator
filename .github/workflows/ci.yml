@@ -12,4 +12,4 @@ jobs:
             - name: Check Repo code
               uses: actions/checkout@v3
             - name: Test code
-              run: docker build -t lerolero-test . && docker run -it --rm lerolero-test
+              run: docker build -t lerolero-test . && docker run --rm lerolero-test
