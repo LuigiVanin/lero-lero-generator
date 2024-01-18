@@ -28,8 +28,6 @@ describe("Mock Generation Service Tests", () => {
         expect(response).not.toBeNull();
         expect(response).not.toBeUndefined();
 
-        console.log(response);
-
         expect(response).toContain(message);
         expect(() => response && JSON.parse(response)).not.toThrow();
 

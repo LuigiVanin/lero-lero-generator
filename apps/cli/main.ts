@@ -33,8 +33,6 @@ const selectChatNameLoop = async () => {
 };
 
 const main = async () => {
-    console.log("main");
-
     prompts.intro(
         colors.bgCyan(` ${colors.bold("Starting Lero Lero CLI 🤖💬")} `)
     );
