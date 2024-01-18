@@ -8,6 +8,6 @@ export class MockTextGenerationService implements TextGeneratorService {
         prompt: string,
         messages: GenerationMessage[]
     ): Promise<string> {
-        return JSON.stringify([{ content: prompt, role: "user" }, ...messages]);
+        return JSON.stringify([...messages, { content: prompt, role: "user" }]);
     }
 }

@@ -37,16 +37,23 @@ describe("Mock Generation Service Tests", () => {
         const result = await gen.generate(textPrompt, messages);
 
         const expectedMessageOutput = [
+            ...messages,
             {
                 content: textPrompt,
                 role: "user",
             },
-            ...messages,
         ];
 
         expect(() => JSON.parse(result)).not.toThrow();
         expect(JSON.parse(result)).toStrictEqual(expectedMessageOutput);
         expect(JSON.parse(result)).length(3);
         expect(result).toBe(JSON.stringify(expectedMessageOutput));
+    });
+
+    it("Expect generation not to throw", async () => {
+        const gen = new MockTextGenerationService();
+
+        expect(gen.generate("id", [])).resolves.not.toThrow();
+        expect(() => gen.generate("id", [])).not.toThrow();
     });
 });
