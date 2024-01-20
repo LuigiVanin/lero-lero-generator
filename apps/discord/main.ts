@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 import { LeroLeroDiscordBot } from "./bot";
-import { LeroLeroGeneratorFactory } from "../../packages/lerolero/utils/factory";
+import { LeroLeroFactory } from "../../packages/lerolero/utils/factory";
 import { LeroLeroGenerator } from "../../packages/lerolero";
 import { S3GenerationHistory } from "../../packages/history";
 import { S3Client } from "@aws-sdk/client-s3";
@@ -38,16 +38,16 @@ const main = () => {
             bucket: process.env.AWS_S3_BUCKET_NAME,
         });
 
-        generator = LeroLeroGeneratorFactory.createWithGpt(
+        generator = LeroLeroFactory.createWithGpt(
             process.env.OPEN_AI_SECRET_KEY,
             history
         );
     } else if (process.env.NODE_ENV === "PROD") {
-        generator = LeroLeroGeneratorFactory.createWithGpt(
+        generator = LeroLeroFactory.createWithGpt(
             process.env.OPEN_AI_SECRET_KEY
         );
     } else {
-        generator = LeroLeroGeneratorFactory.createWithMock();
+        generator = LeroLeroFactory.createWithMock();
     }
 
     const bot = new LeroLeroDiscordBot(

@@ -7,7 +7,7 @@ import {
 import { GenerationHistory, InMemoryGenerationHistory } from "../../history";
 import { InDiskGenerationHistory } from "../../history/InDiskGenerationHistory";
 
-export class LeroLeroGeneratorFactory {
+export class LeroLeroFactory {
     static createWithGpt(
         apiKey: string,
         history: GenerationHistory = new InDiskGenerationHistory("./data")

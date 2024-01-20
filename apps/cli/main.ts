@@ -1,5 +1,12 @@
+import dotenv from "dotenv";
 import * as prompts from "@clack/prompts";
 import colors from "picocolors";
+import { LeroLeroGenerator } from "../../packages/lerolero";
+import { S3Client } from "@aws-sdk/client-s3";
+import { S3GenerationHistory } from "../../packages/history";
+import { LeroLeroFactory } from "../../packages/lerolero/utils/factory";
+
+dotenv.config();
 
 const typeChatName = async () => {
     const chatName = await prompts.text({
@@ -33,6 +40,48 @@ const selectChatNameLoop = async () => {
 };
 
 const main = async () => {
+    if (!process.env.DISCORD_TOKEN) {
+        throw new Error("DISCORD_TOKEN not found");
+    }
+
+    if (!process.env.OPEN_AI_SECRET_KEY) {
+        throw new Error("OPEN AI SECRET KEY not found");
+    }
+
+    let generator: LeroLeroGenerator;
+
+    if (process.env.NODE_ENV === "PROD_REMOTE") {
+        if (
+            !process.env.AWS_ACCESS_KEY ||
+            !process.env.AWS_SECRET_KEY ||
+            !process.env.AWS_S3_BUCKET_NAME
+        ) {
+            throw new Error("AWS_ACCESS_KEY_ID or AWS_SECRET_KEY not found");
+        }
+
+        const s3Client = new S3Client({
+            region: process.env.AWS_S3_REGION || "sa-east-1",
+            credentials: {
+                accessKeyId: process.env.AWS_ACCESS_KEY,
+                secretAccessKey: process.env.AWS_SECRET_KEY,
+            },
+        });
+        const history = new S3GenerationHistory(s3Client, {
+            bucket: process.env.AWS_S3_BUCKET_NAME,
+        });
+
+        generator = LeroLeroFactory.createWithGpt(
+            process.env.OPEN_AI_SECRET_KEY,
+            history
+        );
+    } else if (process.env.NODE_ENV === "PROD") {
+        generator = LeroLeroFactory.createWithGpt(
+            process.env.OPEN_AI_SECRET_KEY
+        );
+    } else {
+        generator = LeroLeroFactory.createWithMock();
+    }
+
     prompts.intro(
         colors.bgCyan(` ${colors.bold("Starting Lero Lero CLI 🤖💬")} `)
     );
@@ -56,9 +105,10 @@ const main = async () => {
         const loading = prompts.spinner();
 
         loading.start("Lero Lero Generator is thinking...");
+        const result = await generator.generate(chatName, message);
         loading.stop(
             `${colors.bold("Lero Lero Generator:")} \n${colors.gray(
-                "│ testeeeeee testeeeeee testeeeeee testeeeeee testeeeeee testeeeeee testeeeeee testeeeeee testeeeeee testeeeeee testeeeeee testeeeeee testeeeeee testeeeeee testeeeeee testeeeeee"
+                `│ ${result}`
             )}`
         );
     }
